@@ -7,7 +7,7 @@ import type { Product } from "@/lib/types";
 
 const TickerMarquee = ({ products }: { products: Product[] }) => {
   return (
-    <MarqueeText duration={30} direction="left" className="py-2 text-sm">
+    <MarqueeText duration={5} direction="right" className="py-2 text-sm">
       {products.map((p) => (
         <span key={p.id} className="mx-5 inline-flex items-center gap-2">
           <span>{p.image}</span>
