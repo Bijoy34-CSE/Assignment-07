@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
@@ -8,7 +9,7 @@ const SignOutButton = () => {
 
   const handleSignOut = async () => {
     await authClient.signOut();
-    toast.success("সাইন আউট হয়েছে");
+    toast.success("সাইন আউট করা হয়েছে");
     router.push("/");
     router.refresh();
   };
@@ -16,9 +17,9 @@ const SignOutButton = () => {
   return (
     <button
       onClick={handleSignOut}
-      className="btn btn-outline btn-sm border-red-500 text-red-600 hover:border-red-600 hover:bg-red-50"
+      className="btn btn-sm btn-outline border-red-600 text-red-600 hover:border-red-600 hover:bg-red-600 hover:text-white"
     >
-      ↩ সাইন আউট
+      সাইন আউট
     </button>
   );
 };

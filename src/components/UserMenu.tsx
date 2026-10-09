@@ -10,7 +10,12 @@ const UserMenu = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
+  const closeMenu = () => {
+    (document.activeElement as HTMLElement | null)?.blur();
+  };
+
   const handleSignOut = async () => {
+    closeMenu();
     await authClient.signOut();
     toast.success("সাইন আউট করা হয়েছে");
     router.push("/");
@@ -52,20 +57,34 @@ const UserMenu = () => {
             {user.name.charAt(0)}
           </div>
         )}
-        <span className="hidden text-sm font-medium sm:block">{user.name}</span>
+        <span className="hidden text-sm font-medium sm:block">
+          {user.name.split(" ")[0]}
+        </span>
       </div>
 
-      <ul
+      <div
         tabIndex={0}
-        className="menu dropdown-content z-10 mt-2 w-48 rounded-box border border-gray-200 bg-white p-2 shadow"
+        className="dropdown-content z-10 mt-2 w-64 rounded-2xl border border-gray-200 bg-white p-4 shadow-lg"
       >
-        <li>
-          <Link href="/profile">আমার প্রোফাইল</Link>
-        </li>
-        <li>
-          <button onClick={handleSignOut}>সাইন আউট</button>
-        </li>
-      </ul>
+        <p className="font-semibold">{user.name}</p>
+        <p className="truncate text-xs text-gray-500">{user.email}</p>
+
+        <div className="mt-3 flex flex-col gap-1 text-sm">
+          <Link
+            href="/profile"
+            onClick={closeMenu}
+            className="rounded-lg px-2 py-1.5 hover:bg-gray-100"
+          >
+            আমার প্রোফাইল
+          </Link>
+          <button
+            onClick={handleSignOut}
+            className="rounded-lg px-2 py-1.5 text-left text-red-600 hover:bg-red-50"
+          >
+            সাইন আউট
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
