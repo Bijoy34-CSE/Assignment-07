@@ -1,18 +1,29 @@
 import { Category, Product } from "./types";
 
-const BASE_URL = "https://api.api-store.workers.dev/api/bazardor";
+const BASE_URLS = [
+  "https://openapi.programming-hero.com/api/bazardor",
+  "https://api.api-store.workers.dev/api/bazardor",
+  "https://api.abcz.workers.dev/api/bazardor",
+];
 
 async function getData<T>(path: string): Promise<T | null> {
-  try {
-    const res = await fetch(`${BASE_URL}${path}`, {
-      next: { revalidate: 600 },
-    });
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
+  for (const base of BASE_URLS) {
+    try {
+      const res = await fetch(`${base}${path}`, {
+        next: { revalidate: 600 },
+      });
+      if (!res.ok) {
+        console.error("API failed:", base + path, res.status);
+        continue;
+      }
+      return await res.json();
+    } catch (error) {
+      console.error("API error:", base + path, error);
+    }
   }
+  return null;
 }
+
 
 export async function getProducts(category?: string) {
   const path = category ? `/products?category=${category}` : "/products";

@@ -2,7 +2,7 @@
 
 BazarDor is a price tracking web app for everyday essentials in Bangladesh. It shows today's prices of rice, lentils, oil, vegetables, fish, meat, eggs & dairy, and spices, along with how much each price has gone up or down, and a market-by-market price comparison on every product page.
 
-🔗 **Live Site:** [Add your Vercel link here]
+🔗 **Live Site:** [https://bazar-dor-snowy-nu.vercel.app]
 📦 **GitHub Repository:** [https://github.com/Bijoy34-CSE/Assignment-07]
 
 ---
