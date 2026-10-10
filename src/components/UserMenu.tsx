@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -9,9 +9,21 @@ import { authClient } from "@/lib/auth-client";
 
 const UserMenu = () => {
   const router = useRouter();
+  const menuRef = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
+
+  // menu r baire tap/click korle bondho hobe
+  useEffect(() => {
+    const handleOutside = (e: PointerEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", handleOutside);
+    return () => document.removeEventListener("pointerdown", handleOutside);
+  }, []);
 
   const handleSignOut = async () => {
     setOpen(false);
@@ -43,9 +55,10 @@ const UserMenu = () => {
 
   return (
     <div
+      ref={menuRef}
       className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
+      onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
+      onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
     >
       <button
         type="button"
