@@ -71,9 +71,19 @@ export default async function ProductPage({
           <div>
             <h1 className="text-2xl font-bold sm:text-3xl">{product.nameBn}</h1>
             <p className="text-sm text-gray-500">
-              প্রতি {unitBn(product.unit)} · {product.categoryNameBn}
+              প্রতি {unitBn(product.unit)}
             </p>
-            <p className="mt-2 text-sm">
+
+            <div className="mt-2 flex flex-wrap gap-2">
+              <Link
+                href={`/category/${product.category}`}
+                className="rounded-full bg-green-50 px-3 py-0.5 text-xs font-medium text-green-700 hover:bg-green-100"
+              >
+                {product.categoryIcon} {product.categoryNameBn}
+              </Link>
+            </div>
+
+            <p className="mt-3 text-sm">
               গতকালের তুলনায় আজ দাম <b>{changeText}</b>
               {diff > 0 && <> · {formatPrice(diff)} টাকা</>}
             </p>

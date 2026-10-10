@@ -17,14 +17,13 @@ async function getData<T>(path: string): Promise<T | null> {
 export async function getProducts(category?: string) {
   const path = category ? `/products?category=${category}` : "/products";
   const products = await getData<Product[]>(path);
-  return products ?? [];
+  return Array.isArray(products) ? products : [];
 }
 
 export async function getCategories() {
   const categories = await getData<Category[]>("/categories");
-  return categories ?? [];
+  return Array.isArray(categories) ? categories : [];
 }
-
 export async function getCategory(slug: string) {
   return getData<Category>(`/categories/${slug}`);
 }

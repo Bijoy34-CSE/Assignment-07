@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import SocialButtons from "./SocialButtons";
 import { authClient } from "@/lib/auth-client";
@@ -14,7 +13,7 @@ const SignInForm = ({
   callbackURL: string;
   reason?: string;
 }) => {
-  const router = useRouter();
+
   const [loading, setLoading] = useState(false);
 
   // protected page e login chhara gele ei toast dekhabe
@@ -23,7 +22,6 @@ const SignInForm = ({
       toast.error("এই পেজ দেখতে আগে সাইন ইন করুন", { id: "protected" });
     }
   }, [reason]);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
@@ -32,18 +30,18 @@ const SignInForm = ({
 
     setLoading(true);
     const { error } = await authClient.signIn.email({ email, password });
-    setLoading(false);
 
     if (error) {
+      setLoading(false);
       toast.error(error.message || "ইমেইল বা পাসওয়ার্ড ভুল হয়েছে");
       return;
     }
 
     toast.success("সাইন ইন সফল হয়েছে");
-    router.push(callbackURL);
-    router.refresh();
+    setTimeout(() => {
+      window.location.href = callbackURL;
+    }, 800);
   };
-
   return (
     <div className="mx-auto max-w-md">
       <div className="text-center">

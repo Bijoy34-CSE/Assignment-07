@@ -8,6 +8,7 @@ export function proxy(request: NextRequest) {
   if (!sessionCookie) {
     const signinUrl = new URL("/signin", request.url);
     signinUrl.searchParams.set("callbackURL", request.nextUrl.pathname);
+    signinUrl.searchParams.set("reason", "protected");
     return NextResponse.redirect(signinUrl);
   }
 

@@ -8,7 +8,7 @@ const CategoryLinks = ({ categories }: { categories: Category[] }) => {
   const pathname = usePathname();
 
   return (
-    <nav className="border-t">
+    <nav className="border-t border-gray-200">
       <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 py-2">
         {categories.map((c) => {
           const active = pathname === `/category/${c.slug}`;

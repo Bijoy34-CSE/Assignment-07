@@ -7,7 +7,7 @@ const Ticker = async () => {
   if (!products || products.length === 0) return null;
 
   return (
-    <div className="border-y bg-white">
+    <div className="border-y border-gray-200 bg-white">
       <TickerMarquee products={products} />
     </div>
   );

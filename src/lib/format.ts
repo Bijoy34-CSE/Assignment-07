@@ -20,7 +20,7 @@ export function formatPrice(n: number) {
 }
 
 export function formatPercent(n: number) {
-  return n.toLocaleString("bn-BD", {
+  return Math.abs(n).toLocaleString("bn-BD", {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   });

@@ -12,9 +12,9 @@ export default async function Home() {
     .slice(0, 6);
 
   const fallers = products
-    .filter((p) => p.change.dir === "down")
-    .sort((a, b) => b.change.pct - a.change.pct)
-    .slice(0, 6);
+  .filter((p) => p.change.dir === "down")
+  .sort((a, b) => Math.abs(b.change.pct) - Math.abs(a.change.pct))
+  .slice(0, 6);
 
   return (
     <div>
